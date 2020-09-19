@@ -1,0 +1,32 @@
+// cerner_2^5_2020
+
+import (
+    "fmt"
+)
+
+func arrayManipulation(n int32, queries [][]int32) int64 {
+    // hold the max value
+    var max int64
+    max = -100000000000000
+    var sum int64
+    sum = 0
+    tempSum := make([]int64,n+2)
+    var i int32    
+    for i=1; i <= int32(len(queries)); i++{
+        // queries[i][0] => a
+        // queries[i][1] => b
+        // queries[i][2] => k
+        a := queries[i-1][0]
+        b := queries[i-1][1]
+        k := queries[i-1][2]
+        tempSum[a] += int64(k)
+        tempSum[b+1] += int64(-k) 
+    }
+    for i=1; i<=n; i++{
+        sum += tempSum[i]
+        if max <= sum{
+            max = sum
+        }
+    }
+    return max
+}
